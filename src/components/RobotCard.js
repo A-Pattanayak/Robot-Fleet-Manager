@@ -9,9 +9,14 @@ const BatteryStatus = (battery) => {
   return BatteryConfig.low;
 };
 
-const RobotCard = ({ robot }) => {
+const RobotCard = ({ robot, onDelete }) => {
   const navigate = useNavigate();
   const batteryConfig = BatteryStatus(robot.battery);
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onDelete(robot.id);
+  };
 
   return (
     <div
@@ -34,7 +39,16 @@ const RobotCard = ({ robot }) => {
           </h3>
         </div>
 
-        <StatusBadge status={robot.status} />
+        <div className="flex items-center gap-2">
+          <StatusBadge status={robot.status} />
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="text-xs text-red-700 bg-red-50 border border-red-100 px-2 py-1 rounded-md hover:bg-red-100 transition-colors duration-150"
+          >
+            Delete
+          </button>
+        </div>
       </div>
 
       <p className="text-gray-600 text-sm mb-4 leading-relaxed">

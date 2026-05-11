@@ -1,16 +1,20 @@
 import { useDispatch, useSelector } from "react-redux"
 import { FILTERS, STAT_CONFIG } from "../utils/Constant";
 import RobotCard from "./RobotCard"
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Header from "./Header";
-import {setFilter,setSearch } from "../store/robotSlice";
+import { addRobot, setFilter,setSearch } from "../store/robotSlice";
 import useRobots from "../hooks/UseRobots";
+import CreateRobotModal from "./CreateRobotModal";
+import useDeleteRobot from "../hooks/useDeleteRobot";
 
 
 const Dashboard = () => {
   
   useRobots();
   const dispatch= useDispatch();
+  const deleteRobot = useDeleteRobot();
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const robots = useSelector((store)=>store.robots.robots)
   const activeFilter= useSelector((store)=>store.robots.filter)
   const search= useSelector((store)=>store.robots.search)
@@ -30,16 +34,30 @@ const Dashboard = () => {
     return matchesFilter && matchesSearch;
   }), [robots, activeFilter, search]);
 
+  const handleRobotCreated = (newRobot) => {
+    dispatch(addRobot(newRobot));
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
 
       <div className="p-8">
-        <div className="mb-8">
-          <p className="text-sm text-gray-500">Robot Operations</p>
-          <h2 className="text-3xl font-bold text-slate-900">
-            Fleet Overview
-          </h2>
+        <div className="flex justify-between items-start gap-4 mb-8">
+          <div>
+            <p className="text-sm text-gray-500">Robot Operations</p>
+            <h2 className="text-3xl font-bold text-slate-900">
+              Fleet Overview
+            </h2>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setShowCreateModal(true)}
+            className="bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-blue-700 transition-colors duration-150"
+          >
+            Create Robot
+          </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
@@ -112,11 +130,22 @@ const Dashboard = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filteredRobots.map(robot => (
-              <RobotCard key={robot.id} robot={robot} />
+              <RobotCard
+                key={robot.id}
+                robot={robot}
+                onDelete={deleteRobot}
+              />
             ))}
           </div>
         )}
       </div>
+
+      {showCreateModal && (
+        <CreateRobotModal
+          onClose={() => setShowCreateModal(false)}
+          onCreated={handleRobotCreated}
+        />
+      )}
     </div>
   )
 }
