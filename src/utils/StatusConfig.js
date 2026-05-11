@@ -1,24 +1,20 @@
-const statusConfig = {
-  
-  active:  {
-    bg: "bg-green-900/40",   
-    text: "text-green-400",   
-    dot: "bg-green-400",      
-  },
-  working: {
-    bg: "bg-blue-900/40",
-    text: "text-blue-400",
-    dot: "bg-blue-400",
-  },
-  idle: {
-    bg: "bg-gray-800",
-    text: "text-gray-400",
-    dot: "bg-gray-400",
-  },
-  error: {
-    bg: "bg-red-900/40",
-    text: "text-red-400",
-    dot: "bg-red-400",
-  },
+import { STATUS_CONFIG } from "./Constant";
+
+const StatusBadge = ({ status }) => {
+  const config = STATUS_CONFIG[status] || STATUS_CONFIG.idle;
+
+  return (
+    <span
+      className={`
+        inline-flex items-center gap-1.5
+        px-3 py-1 rounded-full
+        text-xs font-semibold capitalize
+        ${config.badgeBg} ${config.badgeText}
+      `}
+    >
+      <span className={`w-1.5 h-1.5 rounded-full ${config.badgeDot}`} />
+      {config.label}
+    </span>
+  );
 };
-export default statusConfig
+export default StatusBadge

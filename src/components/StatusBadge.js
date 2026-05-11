@@ -1,8 +1,8 @@
-import statusConfig from "../utils/StatusConfig";
+import { STATUS_CONFIG } from "../utils/Constant";
 
 const StatusBadge=({status})=>{
 
-  const config= statusConfig[status] | statusConfig.idle
+  const config= STATUS_CONFIG[status] || STATUS_CONFIG.idle
 
    return (
     <span
@@ -10,15 +10,13 @@ const StatusBadge=({status})=>{
         inline-flex items-center gap-1.5
         px-3 py-1 rounded-full
         text-xs font-semibold capitalize
-        ${config.bg} ${config.text}
+        ${config.badgeBg} ${config.badgeText}
       `}
     >
-      <span className={`w-1.5 h-1.5 rounded-full ${config.dot}`} />
-      {status}
+      <span className={`w-1.5 h-1.5 rounded-full ${config.badgeDot}`} />
+      {config.label}
     </span>
   );
 };
 
 export default StatusBadge
-
-

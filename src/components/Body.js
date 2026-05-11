@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import RobotDetail from "./robotDetail";
+import RobotDetail from "./RobotDetail";
 import { RouterProvider } from "react-router-dom";
 
 export const appRouter=createBrowserRouter(

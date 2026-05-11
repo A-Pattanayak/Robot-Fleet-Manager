@@ -11,7 +11,8 @@ const robotSlice=createSlice({
     reducers:{
 
         setRobot:(state,action)=>{
-            state.robots=action.payload},
+            state.robots=action.payload
+        },
         setFilter:(state,action)=>{
             state.filter=action.payload
         },
@@ -20,7 +21,7 @@ const robotSlice=createSlice({
         },
         updateRobotStatus:(state,action)=>{
             const {id,status}=action.payload
-            const robot= state.robot.find(r=>r.id===id)
+            const robot= state.robots.find(r=>r.id===id)
             if(robot){
                 robot.status=status
             }
@@ -30,5 +31,10 @@ const robotSlice=createSlice({
 }
 )
 
-export const {setRobot,setFilter,setSearch,updateRobotStatus}=robotSlice.actions;
+export const {
+  setRobot,
+  setFilter,
+  setSearch,
+  updateRobotStatus,
+} = robotSlice.actions;
 export default robotSlice.reducer;
