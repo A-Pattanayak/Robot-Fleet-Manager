@@ -7,6 +7,8 @@
 
 # testing
 /coverage
+__pycache__/
+*.pyc
 
 # production
 /build
@@ -16,7 +18,7 @@
 *service-account*.json
 firebase-adminsdk*.json
 
-
+/movie-gpt-433a6-firebase-adminsdk-fbsvc-f56c4b7883.json
 # misc
 .DS_Store
 .env.local
