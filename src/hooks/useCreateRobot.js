@@ -9,7 +9,7 @@ const useCreateRobot = () => {
       throw new Error("Please sign in before creating robots.");
     }
 
-    const authHeaders = await getAuthHeaders();
+    const authHeaders = await getAuthHeaders(user.uid);
     const response = await fetch(`${BASE_URL}/api/robots`, {
       method: "POST",
       headers: {

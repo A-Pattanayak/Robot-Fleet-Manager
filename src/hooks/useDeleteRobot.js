@@ -11,7 +11,7 @@ const useDeleteRobot = () => {
     if (!user?.uid) return;
 
     try {
-      const authHeaders = await getAuthHeaders();
+      const authHeaders = await getAuthHeaders(user.uid);
       const response = await fetch(`${BASE_URL}/api/robots/${robotId}`, {
         method: "DELETE",
         headers: authHeaders,

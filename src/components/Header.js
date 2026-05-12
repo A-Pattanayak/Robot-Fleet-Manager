@@ -1,6 +1,7 @@
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../store/userSlice";
+import { setRobot } from "../store/robotSlice";
 import { signOut } from "firebase/auth";
 import auth from "../utils/Firebase";
 
@@ -12,6 +13,7 @@ const Header=()=>{
 
     const HandleSignOut=async()=>{
         await signOut(auth);
+        dispatch(setRobot([]));
         dispatch(removeUser());
         navigate('/login');
     }

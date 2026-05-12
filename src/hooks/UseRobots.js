@@ -13,9 +13,12 @@ const useRobots = () => {
       return;
     }
 
+    let isCurrentRequest = true;
+    dispatch(setRobot([]));
+
     const fetchRobots = async () => {
       try {
-        const authHeaders = await getAuthHeaders();
+        const authHeaders = await getAuthHeaders(user.uid);
         const response = await fetch(`${BASE_URL}/api/robots`, {
           headers: authHeaders,
         });
@@ -25,13 +28,23 @@ const useRobots = () => {
         }
 
         const robots = await response.json();
-        dispatch(setRobot(robots));
+
+        if (isCurrentRequest) {
+          dispatch(setRobot(robots));
+        }
       } catch (error) {
-        console.log("Cannot fetch robots", error);
+        if (isCurrentRequest) {
+          dispatch(setRobot([]));
+          console.log("Cannot fetch robots", error);
+        }
       }
     };
 
     fetchRobots();
+
+    return () => {
+      isCurrentRequest = false;
+    };
   }, [dispatch, user?.uid]);
 };
 

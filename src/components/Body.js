@@ -8,6 +8,7 @@ import Login from "./Login";
 import { onAuthStateChanged } from "firebase/auth";
 import auth from "../utils/Firebase";
 import { addUser, removeUser } from "../store/userSlice";
+import { setRobot } from "../store/robotSlice";
 
 const AuthLoader = () => (
   <div className="flex min-h-screen items-center justify-center bg-slate-950 text-sm font-semibold text-white">
@@ -54,6 +55,8 @@ const Body=()=>{
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      dispatch(setRobot([]));
+
       if (user) {
         const { uid, email, displayName, photoURL } = user;
 
