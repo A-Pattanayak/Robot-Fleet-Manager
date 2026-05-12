@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { EMPTY_ROBOT_FORM } from "../utils/Constant";
-import { STATUS_OPTIONS } from "../utils/Constant";
+import { CITY_OPTIONS } from "../utils/Constant";
 import useCreateRobot from "../hooks/useCreateRobot.js";
 
 
@@ -16,24 +16,10 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({
-      ...prev,
-      [name]: name === "battery" || name === "uptime"
-        ? Number(value)   
-        : value,
-    }));
-  };
 
-  const handleLocationChange = (e) => {
-    const { name, value } = e.target;
     setForm(prev => ({
       ...prev,
-      location: {
-        ...prev.location,
-        [name]: name === "lat" || name === "lng"
-          ? Number(value)
-          : value,
-      },
+      [name]: value,
     }));
   };
 
@@ -112,44 +98,6 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-gray-500 text-xs font-mono mb-1 block">
-                STATUS
-              </label>
-              <select
-                name="status"
-                value={form.status}
-                onChange={handleChange}
-                className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors"
-                >
-                {STATUS_OPTIONS.map(option => (
-                    <option
-                    key={option.value}
-                    value={option.value}
-                    >
-                    {option.label}
-                    </option>
-                ))}
-                </select>
-            </div>
-            <div>
-              <label className="text-gray-500 text-xs font-mono mb-1 block">
-                BATTERY %
-              </label>
-              <input
-                name="battery"
-                type="number"
-                min="0"
-                max="100"
-                value={form.battery}
-                onChange={handleChange}
-                required
-                className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors"
-              />
-            </div>
-          </div>
-
           <div>
             <label className="text-gray-500 text-xs font-mono mb-1 block">
               CURRENT TASK
@@ -166,47 +114,21 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
 
           <div>
             <label className="text-gray-500 text-xs font-mono mb-1 block">
-              LOCATION LABEL
+              REGISTERED CITY
             </label>
-            <input
-              name="label"
-              value={form.location.label}
-              onChange={handleLocationChange}
-              placeholder="Warehouse Delhi-C"
+            <select
+              name="cityId"
+              value={form.cityId}
+              onChange={handleChange}
+              className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors"
               required
-              className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors placeholder:text-gray-700"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-gray-500 text-xs font-mono mb-1 block">
-                LATITUDE
-              </label>
-              <input
-                name="lat"
-                type="number"
-                step="any"
-                value={form.location.lat}
-                onChange={handleLocationChange}
-                required
-                className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors"
-              />
-            </div>
-            <div>
-              <label className="text-gray-500 text-xs font-mono mb-1 block">
-                LONGITUDE
-              </label>
-              <input
-                name="lng"
-                type="number"
-                step="any"
-                value={form.location.lng}
-                onChange={handleLocationChange}
-                required
-                className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors"
-              />
-            </div>
+            >
+              {CITY_OPTIONS.map((city) => (
+                <option key={city.value} value={city.value}>
+                  {city.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           <button

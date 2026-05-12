@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRobot } from "../store/robotSlice";
 import { BASE_URL, getAuthHeaders } from "../utils/api";
 
+const ROBOT_POLL_INTERVAL_MS = 10000;
+
 const useRobots = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.currentUser);
@@ -41,9 +43,11 @@ const useRobots = () => {
     };
 
     fetchRobots();
+    const intervalId = setInterval(fetchRobots, ROBOT_POLL_INTERVAL_MS);
 
     return () => {
       isCurrentRequest = false;
+      clearInterval(intervalId);
     };
   }, [dispatch, user?.uid]);
 };

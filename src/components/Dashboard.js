@@ -25,6 +25,7 @@ const Dashboard = () => {
     active: robots.filter(r => r.status === "active").length,
     working: robots.filter(r => r.status === "working").length,
     idle: robots.filter(r => r.status === "idle").length,
+    charging: robots.filter(r => r.status === "charging").length,
     error: robots.filter(r => r.status === "error").length,
 
   }), [robots]);
@@ -87,7 +88,7 @@ const Dashboard = () => {
           </button>
         </section>
 
-        <section className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+        <section className="grid grid-cols-2 lg:grid-cols-6 gap-3 mb-5">
           {STAT_CONFIG.map(stat => (
             <button
               type="button"

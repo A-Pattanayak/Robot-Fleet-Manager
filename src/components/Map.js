@@ -70,13 +70,17 @@ const statusStyles = {
     fill: "#64748b",
     ring: "#e2e8f0",
   },
+  charging: {
+    fill: "#0891b2",
+    ring: "#cffafe",
+  },
   error: {
     fill: "#dc2626",
     ring: "#fecaca",
   },
 };
 
-const statusPriority = ["error", "working", "active", "idle"];
+const statusPriority = ["error", "charging", "working", "active", "idle"];
 
 const getGroupStatus = (robots) => (
   statusPriority.find((status) => robots.some((robot) => robot.status === status)) || "idle"

@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import StatusBadge from "./StatusBadge";
 import useUpdateRobotStatus from "../hooks/UseUpdateRobot";
+import useRobots from "../hooks/UseRobots";
 
 
 
@@ -24,6 +25,7 @@ const RobotDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const updateRobotStatusHandler = useUpdateRobotStatus();
+  useRobots();
 
   const robots = useSelector((state) => state.robots.robots);
   const robot = robots.find((r) => r.id === id);
@@ -49,6 +51,7 @@ const RobotDetail = () => {
   };
 
   const batteryConfig = getBatteryConfig(robot.battery);
+  const isCriticalBattery = robot.battery <= 15;
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -87,17 +90,25 @@ const RobotDetail = () => {
             <button
               key={option.value}
               onClick={() => handleStatusChange(option.value)}
+              disabled={isCriticalBattery && ["active", "working"].includes(option.value)}
               className={`
                 px-4 py-2 rounded-lg text-sm font-medium
                 border transition-all duration-150
                 ${option.style}
                 ${robot.status === option.value ? "ring-1 ring-current" : ""}
+                ${isCriticalBattery && ["active", "working"].includes(option.value) ? "opacity-40 cursor-not-allowed" : ""}
               `}
             >
-              {option.label}
+              {option.value === "idle" ? "Stop / Idle" : option.label}
             </button>
           ))}
         </div>
+
+        {isCriticalBattery && (
+          <p className="mt-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-800">
+            Battery is critically low. Stop the robot or move it to charging before assigning work.
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
@@ -109,6 +120,7 @@ const RobotDetail = () => {
           {[
             { key: "Current Task", val: robot.task },
             { key: "Status", val: robot.status },
+            { key: "Registered City", val: robot.city || robot.cityId },
             { key: "Uptime", val: formatUptime(robot.uptime) },
             { key: "Last Ping", val: robot.lastPing },
             { key: "Location", val: robot.location.label },

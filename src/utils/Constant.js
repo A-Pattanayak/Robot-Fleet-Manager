@@ -1,4 +1,4 @@
-export const FILTERS = ["all", "active", "working", "idle", "error"];
+export const FILTERS = ["all", "active", "working", "idle", "charging", "error"];
 
 export const STATUS_CONFIG = {
   active: {
@@ -34,6 +34,17 @@ export const STATUS_CONFIG = {
     buttonStyle: "border-gray-200 text-gray-700 bg-gray-50 hover:bg-gray-100",
   },
 
+  charging: {
+    label: "Charging",
+    key: "charging",
+    textColor: "text-cyan-700",
+    statColor: "text-cyan-700",
+    badgeBg: "bg-cyan-50",
+    badgeText: "text-cyan-700",
+    badgeDot: "bg-cyan-400",
+    buttonStyle: "border-cyan-200 text-cyan-700 bg-cyan-50 hover:bg-cyan-100",
+  },
+
   error: {
     label: "Error",
     key: "error",
@@ -65,18 +76,40 @@ export const STATUS_OPTIONS = Object.values(STATUS_CONFIG).map((status) => ({
   style: status.buttonStyle,
 }));
 
+export const CITY_OPTIONS = [
+  {
+    label: "Delhi",
+    value: "delhi",
+  },
+  {
+    label: "Mumbai",
+    value: "mumbai",
+  },
+  {
+    label: "Pune",
+    value: "pune",
+  },
+  {
+    label: "Hyderabad",
+    value: "hyderabad",
+  },
+  {
+    label: "Bangalore",
+    value: "bangalore",
+  },
+  {
+    label: "Kolkata",
+    value: "kolkata",
+  },
+  {
+    label: "Chennai",
+    value: "chennai",
+  },
+];
+
 export const EMPTY_ROBOT_FORM = {
   id: "",
   name: "",
-  status: "idle",
-  battery: 100,
   task: "",
-  uptime: 0,
-  location: {
-    lat: 28.6139,
-    lng: 77.2090,
-    label: "",
-  },
-  errorLog: [],
-  lastPing: "just now",
+  cityId: "delhi",
 };

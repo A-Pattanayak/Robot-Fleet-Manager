@@ -12,6 +12,7 @@ const BatteryStatus = (battery) => {
 const RobotCard = ({ robot, onDelete }) => {
   const navigate = useNavigate();
   const batteryConfig = BatteryStatus(robot.battery);
+  const isLowBattery = robot.battery <= 20;
 
   const handleDelete = (e) => {
     e.stopPropagation();
@@ -68,6 +69,12 @@ const RobotCard = ({ robot, onDelete }) => {
           style={{ width: `${robot.battery}%` }}
         />
       </div>
+
+      {isLowBattery && (
+        <div className="mb-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-800">
+          Low charge. Stop work and move this robot to charging.
+        </div>
+      )}
 
       <div className="flex justify-between items-center">
         <span className="text-gray-500 text-xs">
