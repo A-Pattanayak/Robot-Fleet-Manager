@@ -12,6 +12,9 @@
 /build
 
 /.env
+*serviceAccount*.json
+*service-account*.json
+firebase-adminsdk*.json
 
 
 # misc

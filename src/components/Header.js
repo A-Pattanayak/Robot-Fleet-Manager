@@ -1,17 +1,19 @@
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../store/userSlice";
+import { signOut } from "firebase/auth";
+import auth from "../utils/Firebase";
 
 const Header=()=>{
 
     const navigate= useNavigate();
     const dispatch=useDispatch();
-    const user=useSelector((store)=>store.user);
+    const user=useSelector((store)=>store.user.currentUser);
 
-    const HandleSignOut=()=>{
+    const HandleSignOut=async()=>{
+        await signOut(auth);
         dispatch(removeUser());
-        navigate('/');
-        
+        navigate('/login');
     }
 
  return (
@@ -35,18 +37,33 @@ const Header=()=>{
             {user.email}
           </span>
         )}
-        <button
-          onClick={HandleSignOut}
-          className="
-            text-gray-600 text-sm
-            border border-gray-300
-            px-4 py-2 rounded-lg
-            hover:text-blue-700 hover:border-blue-500
-            transition-all duration-150
-          "
-        >
-          Logout
-        </button>
+        {user ? (
+          <button
+            onClick={HandleSignOut}
+            className="
+              text-gray-600 text-sm
+              border border-gray-300
+              px-4 py-2 rounded-lg
+              hover:text-blue-700 hover:border-blue-500
+              transition-all duration-150
+            "
+          >
+            Logout
+          </button>
+        ) : (
+          <button
+            onClick={() => navigate("/login")}
+            className="
+              text-gray-600 text-sm
+              border border-gray-300
+              px-4 py-2 rounded-lg
+              hover:text-blue-700 hover:border-blue-500
+              transition-all duration-150
+            "
+          >
+            Login
+          </button>
+        )}
       </div>
     </nav>
   );

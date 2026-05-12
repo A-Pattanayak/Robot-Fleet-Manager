@@ -1,10 +1,19 @@
-import { BASE_URL } from "../utils/api";
+import { useSelector } from "react-redux";
+import { BASE_URL, getAuthHeaders } from "../utils/api";
 
 const useCreateRobot = () => {
+  const user = useSelector((store) => store.user.currentUser);
+
   const createRobot = async (robotData) => {
+    if (!user?.uid) {
+      throw new Error("Please sign in before creating robots.");
+    }
+
+    const authHeaders = await getAuthHeaders();
     const response = await fetch(`${BASE_URL}/api/robots`, {
       method: "POST",
       headers: {
+        ...authHeaders,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(robotData),
