@@ -1,15 +1,15 @@
 const BatteryConfig = {
   high: {
-    bg: "bg-green-400",
-    text: "text-green-400",
+    bg: "bg-emerald-500",
+    text: "text-emerald-300",
   },
   medium: {
-    bg: "bg-yellow-400",
-    text: "text-yellow-400",
+    bg: "bg-amber-400",
+    text: "text-amber-300",
   },
   low: {
-    bg: "bg-red-400",
-    text: "text-red-400",
+    bg: "bg-red-500",
+    text: "text-red-300",
   },
 };
 

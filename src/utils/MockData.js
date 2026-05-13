@@ -13,7 +13,7 @@ const mockRobots = [
   {
     id: "RBT-002",
     name: "Beta-02",
-    status: "working",
+    status: "active",
     battery: 74,
     task: "Sorting packages",
     uptime: 5400,
@@ -57,7 +57,7 @@ const mockRobots = [
   {
     id: "RBT-006",
     name: "Zeta-06",
-    status: "working",
+    status: "active",
     battery: 60,
     task: "Assembling Unit 9",
     uptime: 9000,
@@ -101,7 +101,7 @@ const mockRobots = [
   {
     id: "RBT-010",
     name: "Kappa-10",
-    status: "working",
+    status: "active",
     battery: 55,
     task: "Inventory scan",
     uptime: 6600,

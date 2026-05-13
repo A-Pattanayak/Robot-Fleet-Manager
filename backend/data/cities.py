@@ -42,5 +42,3 @@ CITY_LOCATIONS = {
         "range": 0.025,
     },
 }
-
-MOVEMENT_STEP_RANGE = 0.0015

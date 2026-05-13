@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const containerStyle = {
   width: "100%",
-  height: "420px",
+  height: "340px",
 };
 
 const center = {
@@ -38,12 +38,12 @@ const mapOptions = {
     },
     {
       featureType: "landscape",
-      stylers: [{ color: "#f8fafc" }],
+      stylers: [{ color: "#eef2f7" }],
     },
     {
       featureType: "road",
       elementType: "geometry",
-      stylers: [{ color: "#dbe4ee" }, { lightness: 20 }],
+      stylers: [{ color: "#cbd5e1" }, { lightness: 10 }],
     },
     {
       featureType: "road",
@@ -52,7 +52,7 @@ const mapOptions = {
     },
     {
       featureType: "water",
-      stylers: [{ color: "#d8eef8" }],
+      stylers: [{ color: "#bfdbfe" }],
     },
   ],
 };
@@ -62,17 +62,13 @@ const statusStyles = {
     fill: "#16a34a",
     ring: "#bbf7d0",
   },
-  working: {
-    fill: "#2563eb",
-    ring: "#bfdbfe",
-  },
   idle: {
     fill: "#64748b",
     ring: "#e2e8f0",
   },
   charging: {
-    fill: "#0891b2",
-    ring: "#cffafe",
+    fill: "#d97706",
+    ring: "#fef3c7",
   },
   error: {
     fill: "#dc2626",
@@ -80,7 +76,7 @@ const statusStyles = {
   },
 };
 
-const statusPriority = ["error", "charging", "working", "active", "idle"];
+const statusPriority = ["error", "charging", "active", "idle"];
 
 const getGroupStatus = (robots) => (
   statusPriority.find((status) => robots.some((robot) => robot.status === status)) || "idle"
@@ -167,26 +163,37 @@ const LiveMap = ({ robots }) => {
 
   if (!isLoaded) {
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-6 text-gray-500 text-sm">
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6 text-sm text-zinc-400 shadow-sm">
         Loading map...
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={5}
-        options={mapOptions}
-        onLoad={(map) => {
-          mapRef.current = map;
-        }}
-        onUnmount={() => {
-          mapRef.current = null;
-        }}
-      >
+    <section className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow-sm">
+      <div className="flex items-center justify-between border-b border-zinc-700 bg-zinc-800 px-4 py-2">
+        <div>
+          <p className="text-sm font-semibold text-white">Live Map</p>
+          <p className="text-xs text-zinc-300">{robotGroups.length} active location{robotGroups.length === 1 ? "" : "s"}</p>
+        </div>
+        <span className="rounded-full border border-red-500/40 bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-200">
+          Powered by Google Maps
+        </span>
+      </div>
+
+      <div className="p-2">
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={5}
+          options={mapOptions}
+          onLoad={(map) => {
+            mapRef.current = map;
+          }}
+          onUnmount={() => {
+            mapRef.current = null;
+          }}
+        >
         {robotGroups.map((group) => {
           const groupStatus = getGroupStatus(group.robots);
 
@@ -220,12 +227,12 @@ const LiveMap = ({ robots }) => {
                     key={robot.id}
                     type="button"
                     onClick={() => navigate(`/robot/${robot.id}`)}
-                    className="text-left border border-gray-200 rounded-md px-3 py-2 hover:border-blue-500 hover:bg-blue-50 transition-colors duration-150"
+                    className="rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-left transition-colors duration-150 hover:border-red-500 hover:bg-zinc-800"
                   >
-                    <span className="block text-sm font-semibold text-slate-900">
+                    <span className="block text-sm font-semibold text-zinc-100">
                       {robot.name}
                     </span>
-                    <span className="block text-xs text-gray-500">
+                    <span className="block text-xs text-zinc-400">
                       {robot.status} - {robot.battery}% battery
                     </span>
                   </button>
@@ -234,8 +241,9 @@ const LiveMap = ({ robots }) => {
             </div>
           </InfoWindow>
         )}
-      </GoogleMap>
-    </div>
+        </GoogleMap>
+      </div>
+    </section>
   );
 };
 

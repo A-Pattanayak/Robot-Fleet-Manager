@@ -11,8 +11,8 @@ import { addUser, removeUser } from "../store/userSlice";
 import { setRobot } from "../store/robotSlice";
 
 const AuthLoader = () => (
-  <div className="flex min-h-screen items-center justify-center bg-slate-950 text-sm font-semibold text-white">
-    Loading...
+  <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-sm font-semibold text-zinc-300">
+    Loading RoboSena...
   </div>
 );
 

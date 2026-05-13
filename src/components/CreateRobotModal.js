@@ -43,35 +43,38 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
   return (
  
     <div
-      className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
       onClick={onClose}
     >
  
       <div
-        className="bg-[#1a1a2e] border border-[#2a2a3e] rounded-2xl p-8 w-full max-w-lg"
+        className="w-full max-w-lg rounded-lg border border-zinc-800 bg-zinc-900 p-6 shadow-xl"
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-white text-xl font-bold">Add New Robot</h2>
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <p className="text-sm font-semibold text-red-700">RoboSena Unit</p>
+            <h2 className="text-xl font-bold text-white">Add New Robot</h2>
+          </div>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-white text-xl transition-colors"
+            className="rounded-md px-2 py-1 text-xl text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-white"
           >
             x
           </button>
         </div>
 
         {error && (
-          <div className="bg-red-900/30 border border-red-500/30 text-red-400 text-sm rounded-lg px-4 py-3 mb-4">
+          <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
-              <label className="text-gray-500 text-xs font-mono mb-1 block">
+              <label className="mb-1 block text-xs font-semibold text-zinc-400">
                 ROBOT ID
               </label>
               <input
@@ -80,11 +83,11 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
                 onChange={handleChange}
                 placeholder="RBT-011"
                 required
-                className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors placeholder:text-gray-700"
+                className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-red-500"
               />
             </div>
             <div>
-              <label className="text-gray-500 text-xs font-mono mb-1 block">
+              <label className="mb-1 block text-xs font-semibold text-zinc-400">
                 NAME
               </label>
               <input
@@ -93,13 +96,13 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
                 onChange={handleChange}
                 placeholder="Lambda-11"
                 required
-                className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors placeholder:text-gray-700"
+                className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-red-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-gray-500 text-xs font-mono mb-1 block">
+            <label className="mb-1 block text-xs font-semibold text-zinc-400">
               CURRENT TASK
             </label>
             <input
@@ -108,19 +111,19 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
               onChange={handleChange}
               placeholder="Patrolling Zone B"
               required
-              className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors placeholder:text-gray-700"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-red-500"
             />
           </div>
 
           <div>
-            <label className="text-gray-500 text-xs font-mono mb-1 block">
+            <label className="mb-1 block text-xs font-semibold text-zinc-400">
               REGISTERED CITY
             </label>
             <select
               name="cityId"
               value={form.cityId}
               onChange={handleChange}
-              className="w-full bg-[#0f0f1a] border border-[#2a2a3e] text-white text-sm px-3 py-2.5 rounded-lg outline-none focus:border-indigo-500 transition-colors"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors focus:border-red-500"
               required
             >
               {CITY_OPTIONS.map((city) => (
@@ -134,7 +137,7 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors duration-150 mt-2"
+            className="mt-2 w-full rounded-lg bg-red-600 py-3 font-semibold text-white transition-colors duration-150 hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
           >
             {loading ? "Creating..." : "Create Robot"}
           </button>

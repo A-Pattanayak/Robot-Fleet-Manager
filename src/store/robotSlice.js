@@ -6,12 +6,17 @@ const robotSlice=createSlice({
     initialState:{
         robots:[],
         filter:"all",
-        search: ""
+        search: "",
+        isLoading: false,
     },
     reducers:{
 
         setRobot:(state,action)=>{
             state.robots=action.payload
+            state.isLoading=false
+        },
+        setRobotLoading:(state,action)=>{
+            state.isLoading=action.payload
         },
         setFilter:(state,action)=>{
             state.filter=action.payload
@@ -39,6 +44,7 @@ const robotSlice=createSlice({
 
 export const {
   setRobot,
+  setRobotLoading,
   setFilter,
   setSearch,
   addRobot,
