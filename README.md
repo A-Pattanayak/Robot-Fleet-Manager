@@ -1,35 +1,38 @@
-# Robot Fleet Manager
+# AUTOMATA - Robot Fleet Manager
 
-Full-stack robot fleet dashboard for monitoring, creating, filtering, and managing robots across multiple cities.
+Full-stack robot fleet command center for tracking, creating, updating, and managing robots across multiple cities.
 
-Robot Fleet Manager combines Firebase auth, Firestore-backed fleet data, Google Maps location visualization, FastAPI robot APIs, Redux state management, and live telemetry simulation into a responsive React dashboard.
+AUTOMATA solves a practical fleet operations problem: when multiple robots are active in different locations, operators need one clear dashboard to monitor battery health, live status, tasks, alerts, and map-based movement without checking each robot manually.
 
-## Live Demo
+[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-AUTOMATA_FLEET-ef4444?style=for-the-badge&logo=vercel&logoColor=white)](https://automata-fleet.vercel.app/)
 
-Coming soon
+---
 
 ## Tech Stack
 
-React Redux Toolkit Tailwind Firebase Firestore FastAPI Google Maps Vercel
+![Frontend](https://img.shields.io/badge/FRONTEND-React-61DAFB?style=for-the-badge&logo=react&logoColor=111827)
+![State](https://img.shields.io/badge/STATE-Redux_Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+![Styling](https://img.shields.io/badge/STYLING-Tailwind_CSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Auth](https://img.shields.io/badge/AUTH-Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=111827)
+![Database](https://img.shields.io/badge/DATABASE-Firestore-FFA611?style=for-the-badge&logo=firebase&logoColor=111827)
+![Backend](https://img.shields.io/badge/BACKEND-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Maps](https://img.shields.io/badge/MAPS-Google_Maps-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white)
+![Deploy](https://img.shields.io/badge/DEPLOY-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+---
 
 ## Features
 
-- Firebase sign up, sign in, sign out, and protected dashboard access
-- User-specific robot fleet stored in Firestore
-- Create robots with name, task, city, and generated telemetry details
-- Search robots by name, task, city, status, and location data
-- Filter robots by operational status
-- Fleet metrics for active, idle, working, charging, error, and low-battery robots
-- Google Maps view for robot locations
-- Robot detail page with task, status, battery, uptime, city, and location data
-- Update robot status from the robot detail page
-- Delete robots from the fleet
-- Periodic backend sync for fresh Firestore data
-- Frontend telemetry simulation for live dashboard movement
-- Redux Toolkit slice for robot filter, search, loading, and fleet state
-- Custom hooks for robot fetching, filtering, metrics, create, update, and delete flows
-- Responsive Tailwind CSS dashboard UI
-- Full-stack Vercel setup for React frontend and FastAPI backend
+- Secure sign up, sign in, sign out, and protected dashboard access with Firebase Authentication
+- User-specific robot fleets stored in Firebase Firestore
+- FastAPI backend for robot creation, fleet fetching, status updates, delete operations, and Firebase token verification
+- Dashboard overview with fleet metrics, alerts, battery health, active states, and robot cards
+- Search and filter robots by name, task, city, status, and location data
+- Google Maps integration for visualizing robot locations across cities
+- Robot detail page with status controls, battery data, uptime, task, city, and coordinates
+- Custom React hooks for fetching, filtering, metrics, create, update, and delete flows
+- Redux Toolkit store for robot state, search, filters, loading state, and authenticated user data
+- Periodic backend sync and frontend telemetry simulation for a more realistic monitoring experience
 
 ## Architecture
 
