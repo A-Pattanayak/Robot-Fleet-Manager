@@ -1,141 +1,71 @@
 # Robot Fleet Manager
 
-A full-stack robot fleet management dashboard for monitoring, creating, filtering, and controlling robots across multiple cities.
+Full-stack robot fleet dashboard for monitoring, creating, filtering, and managing robots across multiple cities.
 
-Robot Fleet Manager helps an operator see the current state of their robot fleet in one place: which robots are active, idle, working, charging, in error, or low on battery. It combines a React dashboard, Firebase authentication, Firestore persistence, Google Maps visualization, and a FastAPI backend.
+Robot Fleet Manager combines Firebase auth, Firestore-backed fleet data, Google Maps location visualization, FastAPI robot APIs, Redux state management, and live telemetry simulation into a responsive React dashboard.
 
-## Problem It Solves
+## Live Demo
 
-Managing a robot fleet becomes difficult when robot data is scattered across different tools or hidden behind raw telemetry logs. Operators need a fast way to answer practical questions:
-
-- Which robots are available right now?
-- Which robots need attention because of low battery or errors?
-- Where are the robots located?
-- Can I quickly create, update, or remove robots from my fleet?
-- Can each signed-in user manage their own robots securely?
-
-This project solves that by providing a single authenticated dashboard for fleet visibility and basic robot operations.
-
-## Features
-
-- Firebase login and authenticated fleet access
-- User-specific robot data stored in Firestore
-- Create new robots with city, task, and identity details
-- View all robots in a searchable fleet directory
-- Filter robots by operational status
-- Live dashboard metrics for fleet health
-- Google Maps view for robot locations
-- Robot detail page with status, battery, location, uptime, and task info
-- Update robot status from the detail page
-- Delete robots from the fleet
-- Frontend telemetry simulation for changing battery/status-style data
-- Periodic backend sync to keep robot data fresh
-- Responsive dark dashboard UI built for operational monitoring
-- Full-stack Vercel deployment support with React frontend and FastAPI backend
+Coming soon
 
 ## Tech Stack
 
-Frontend:
+React Redux Toolkit Tailwind Firebase Firestore FastAPI Google Maps Vercel
 
-- React
-- React Router
-- Redux Toolkit
-- React Redux
-- Custom React hooks
-- Tailwind CSS
-- Firebase Auth
-- Google Maps React API
+## Features
 
-Backend:
-
-- FastAPI
-- Firebase Admin SDK
-- Firestore
-- Pydantic
-- Uvicorn for local development
-
-Deployment:
-
-- Vercel
-- Vercel Python Functions for FastAPI
-- Create React App production build
+- Firebase sign up, sign in, sign out, and protected dashboard access
+- User-specific robot fleet stored in Firestore
+- Create robots with name, task, city, and generated telemetry details
+- Search robots by name, task, city, status, and location data
+- Filter robots by operational status
+- Fleet metrics for active, idle, working, charging, error, and low-battery robots
+- Google Maps view for robot locations
+- Robot detail page with task, status, battery, uptime, city, and location data
+- Update robot status from the robot detail page
+- Delete robots from the fleet
+- Periodic backend sync for fresh Firestore data
+- Frontend telemetry simulation for live dashboard movement
+- Redux Toolkit slice for robot filter, search, loading, and fleet state
+- Custom hooks for robot fetching, filtering, metrics, create, update, and delete flows
+- Responsive Tailwind CSS dashboard UI
+- Full-stack Vercel setup for React frontend and FastAPI backend
 
 ## Architecture
 
-The project follows a clean, modular React structure inspired by the Namaste React style of separating UI, logic, data, and utilities.
-
 ```txt
 src/
-  components/        UI components and screen sections
-  hooks/             Data-fetching and business logic hooks
-  store/             Redux Toolkit slices and app store
-  utils/             API, Firebase, robot, battery, and map helpers
+  components/   UI components, dashboard sections, robot cards, map, and detail views
+  hooks/        Custom hooks for robot data, filtering, metrics, create, update, and delete
+  store/        Redux Toolkit store and slices for user and robot state
+  utils/        Firebase, API helpers, robot utilities, map helpers, and config
 
 backend/
-  Main.py            FastAPI application setup
-  routes/            API routes
-  services/          Auth, robot, and simulation services
-  models/            Pydantic schemas
-  core/              Firebase Admin initialization
-  data/              City/location data
+  Main.py       FastAPI app setup
+  routes/       Robot API routes
+  services/     Firebase auth, robot CRUD, and simulation logic
+  models/       Pydantic robot schemas
+  core/         Firebase Admin initialization
+  data/         City location data
 
 api/
-  index.py           Vercel entrypoint for the FastAPI app
+  index.py      Vercel FastAPI entrypoint
 ```
 
-What happens under the hood? React keeps the UI declarative, Redux stores fleet state, and custom hooks such as `useRobots`, `useFilteredRobots`, and `useFleetMetrics` keep the data logic away from presentational components. When the robot list changes, React's reconciliation updates only the affected parts of the virtual DOM, such as the changed robot card, fleet count, or map marker.
-
-## Key React Concepts Used
-
-- Functional components only
-- `useState` for local UI state, such as modals
-- `useEffect` for robot fetching, polling, and telemetry timers
-- `useMemo` for efficient robot filtering
-- `useRef` to avoid stale robot data inside interval callbacks
-- Redux Toolkit reducers for predictable fleet state updates
-- Custom hooks for single-responsibility logic
-- Component composition for dashboard, directory, map, and detail views
-
-## Backend API
-
-The FastAPI backend exposes robot APIs under:
-
-```txt
-/api/robots
-```
-
-Main operations:
-
-- `GET /api/robots` - fetch robots for the authenticated user
-- `GET /api/robots/{robot_id}` - fetch one robot
-- `POST /api/robots` - create a robot
-- `PATCH /api/robots/{robot_id}` - update robot status
-- `DELETE /api/robots/{robot_id}` - delete a robot
-
-Each request is protected with Firebase authentication. The frontend sends the Firebase ID token in the `Authorization` header.
-
-## Local Setup
-
-Install frontend dependencies:
+## Run Locally
 
 ```bash
 npm install
+npm start
 ```
 
-Create and activate a Python virtual environment:
+Create a Python virtual environment and install backend dependencies:
 
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
-```
-
-Install backend dependencies:
-
-```bash
 pip install -r backend/requirements.txt
 ```
-
-Create a `.env` file using `.env.example` and add your Firebase and Google Maps values.
 
 Start the backend:
 
@@ -143,27 +73,7 @@ Start the backend:
 uvicorn backend.Main:app --reload
 ```
 
-Start the frontend in another terminal:
-
-```bash
-npm start
-```
-
-Frontend:
-
-```txt
-http://localhost:3000
-```
-
-Backend:
-
-```txt
-http://127.0.0.1:8000
-```
-
-## Environment Variables
-
-Frontend:
+Create a `.env` file:
 
 ```txt
 REACT_APP_API_URL=http://127.0.0.1:8000
@@ -176,60 +86,18 @@ REACT_APP_FIREBASE_PROJECT_ID=your_project_id
 REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 REACT_APP_FIREBASE_APP_ID=your_app_id
-```
-
-Backend:
-
-```txt
 FRONTEND_ORIGINS=http://localhost:3000
 FIREBASE_SERVICE_ACCOUNT_JSON={"type":"service_account","project_id":"..."}
 ```
 
-For local backend development, you can also use:
-
-```txt
-GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account.json
-```
-
-## Deployment
-
-This project can deploy both frontend and backend on Vercel.
-
-Vercel serves the React build from `build/`. API requests are handled by `api/index.py`, which exports the existing FastAPI app from `backend/Main.py`.
-
-Vercel settings:
-
-- Framework Preset: `Create React App`
-- Build Command: `npm run build`
-- Output Directory: `build`
-
-Production environment variables:
-
-```txt
-REACT_APP_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
-REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=your_project_id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-REACT_APP_FIREBASE_APP_ID=your_app_id
-FRONTEND_ORIGINS=https://your-vercel-app.vercel.app
-FIREBASE_SERVICE_ACCOUNT_JSON={"type":"service_account","project_id":"..."}
-```
-
-`REACT_APP_API_URL` is optional in production. If it is not provided, the frontend automatically uses the deployed Vercel domain.
-
-## Build
-
-Create a production build:
+Build for production:
 
 ```bash
 npm run build
 ```
 
-## Notes
+## Deployment Notes
 
-- Add your deployed Vercel domain to Firebase Authentication authorized domains.
-- Restrict your Google Maps API key to your deployed domain.
-- Keep Firebase Admin credentials only in environment variables.
-- Vercel runs FastAPI as serverless functions, so it is good for request/response APIs. Long-running workers, sockets, or persistent in-memory services should use a dedicated backend host.
+Add your deployed domain to Firebase Authentication's authorized domains and restrict the Google Maps API key to your production domain. Keep Firebase Admin credentials out of Git and store `FIREBASE_SERVICE_ACCOUNT_JSON` only in Vercel environment variables.
+
+The React frontend is served from the Create React App `build` folder, while `/api` requests are handled by the FastAPI app through Vercel Python Functions. Since Vercel Functions are request/response based, long-running workers, sockets, or persistent in-memory robot services should eventually move to a dedicated backend host.
