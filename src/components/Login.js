@@ -10,7 +10,7 @@ import auth from "../utils/Firebase";
 import Validate from "../utils/Validate";
 import { addUser } from "../store/userSlice";
 import LoginShimmerUI from "./LoginShimmerUI";
-import loginBackground from "../utils/ChatGPT Image May 19, 2026, 08_11_23 PM.png";
+import loginBackground from "../assets/login-background.jpg";
 
 const profileLogo =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%23ea580c'/%3E%3Cpath d='M28 60h40v8H28zM34 29h28a6 6 0 0 1 6 6v17H28V35a6 6 0 0 1 6-6z' fill='white'/%3E%3Ccircle cx='39' cy='42' r='4' fill='%23ea580c'/%3E%3Ccircle cx='57' cy='42' r='4' fill='%23ea580c'/%3E%3Cpath d='M42 52h12' stroke='%23ea580c' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E";
@@ -29,6 +29,7 @@ const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false);
 
   const email = useRef(null);
   const password = useRef(null);
@@ -106,11 +107,15 @@ const Login = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.22),transparent_34%),linear-gradient(135deg,#09090b,#18181b_52%,#431407)]" />
       <img
         src={loginBackground}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover object-center"
+        className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-500 ${isBackgroundLoaded ? "opacity-100" : "opacity-0"}`}
         aria-hidden="true"
+        decoding="async"
+        fetchPriority="high"
+        onLoad={() => setIsBackgroundLoaded(true)}
       />
       {isLoading && (
         <LoginShimmerUI
