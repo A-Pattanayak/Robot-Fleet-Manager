@@ -49,7 +49,7 @@ export const STAT_CONFIG = [
     label: "Total",
     key: "all",
     color: "text-white",
-    dotColor: "bg-red-600",
+    dotColor: "bg-orange-600",
   },
   ...Object.values(STATUS_CONFIG).map((status) => ({
     label: status.label,
@@ -81,8 +81,8 @@ export const ROBOT_CARD_STATUS_LINE = {
 
 export const ROBOT_CARD_THEMES = [
   {
-    glow: "from-red-500/20",
-    wash: "bg-red-500/10",
+    glow: "from-orange-500/20",
+    wash: "bg-orange-500/10",
   },
   {
     glow: "from-sky-500/20",

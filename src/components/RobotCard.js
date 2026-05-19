@@ -47,7 +47,7 @@ const RobotCard = ({ robot, themeIndex = 0 }) => {
         bg-zinc-900 border border-zinc-800
         rounded-lg cursor-pointer
         shadow-sm
-        hover:border-red-500 hover:bg-zinc-800 hover:shadow-md
+        hover:border-orange-500 hover:bg-zinc-800 hover:shadow-md
         transition-all duration-200
       "
     >

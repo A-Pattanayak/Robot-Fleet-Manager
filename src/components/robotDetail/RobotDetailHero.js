@@ -5,7 +5,7 @@ const RobotDetailHero = ({ robot, onDelete }) => {
     <section className="mb-4 rounded-lg border border-zinc-800 bg-zinc-900 p-5 shadow-sm">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="mb-1 text-sm font-semibold text-red-300">
+          <p className="mb-1 text-sm font-semibold text-orange-300">
             AUTOMATA Unit Detail
           </p>
           <p className="mb-1 text-xs font-medium text-zinc-500">{robot.id}</p>
@@ -20,7 +20,7 @@ const RobotDetailHero = ({ robot, onDelete }) => {
           <button
             type="button"
             onClick={onDelete}
-            className="rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-200 transition-colors duration-150 hover:bg-red-500/20 hover:text-white"
+            className="rounded-lg border border-orange-500/40 bg-orange-500/10 px-4 py-2 text-sm font-semibold text-orange-200 transition-colors duration-150 hover:bg-orange-500/20 hover:text-white"
           >
             Delete Robot
           </button>

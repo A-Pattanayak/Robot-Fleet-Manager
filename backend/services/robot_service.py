@@ -2,7 +2,7 @@ from fastapi import HTTPException
 
 from core.firebase import db
 from models.robot import RobotCreate, StatusUpdate
-from services.simulation_service import build_robot
+from services.simulation_service import apply_robot_telemetry, build_robot, get_current_timestamp
 
 
 def robots_collection(uid: str):
@@ -14,7 +14,9 @@ def get_robots_for_user(uid: str):
     robots = []
 
     for robot_doc in robot_docs:
-        robots.append(robot_doc.to_dict())
+        robot = apply_robot_telemetry(robot_doc.to_dict())
+        robot_doc.reference.set(robot, merge=True)
+        robots.append(robot)
 
     return robots
 
@@ -26,7 +28,10 @@ def get_robot_for_user(uid: str, robot_id: str):
     if not robot_snapshot.exists:
         raise HTTPException(status_code=404, detail="Robot not found")
 
-    return robot_snapshot.to_dict()
+    robot = apply_robot_telemetry(robot_snapshot.to_dict())
+    robot_ref.set(robot, merge=True)
+
+    return robot
 
 
 def create_robot_for_user(uid: str, robot: RobotCreate):
@@ -47,7 +52,7 @@ def update_robot_status_for_user(uid: str, robot_id: str, status_update: StatusU
     if not robot_snapshot.exists:
         raise HTTPException(status_code=404, detail="Robot not found")
 
-    robot = robot_snapshot.to_dict()
+    robot = apply_robot_telemetry(robot_snapshot.to_dict())
 
     if robot.get("battery", 100) <= 15 and status_update.status in ["active", "working"]:
         raise HTTPException(
@@ -55,7 +60,14 @@ def update_robot_status_for_user(uid: str, robot_id: str, status_update: StatusU
             detail="Battery is critically low. Stop the robot or move it to charging.",
         )
 
-    robot_ref.update({"status": status_update.status})
+    robot_ref.set(
+        {
+            **robot,
+            "status": status_update.status,
+            "telemetryUpdatedAt": get_current_timestamp(),
+        },
+        merge=True,
+    )
     return robot_ref.get().to_dict()
 
 

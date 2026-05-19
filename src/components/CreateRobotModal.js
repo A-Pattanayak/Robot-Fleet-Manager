@@ -52,7 +52,7 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
       >
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <p className="text-sm font-semibold text-red-700">AUTOMATA Unit</p>
+            <p className="text-sm font-semibold text-orange-500">AUTOMATA Unit</p>
             <h2 className="text-xl font-bold text-white">Add New Robot</h2>
           </div>
           <button
@@ -82,7 +82,7 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
                 onChange={handleChange}
                 placeholder="RBT-011"
                 required
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-red-500"
+                className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-orange-500"
               />
             </div>
             <div>
@@ -95,7 +95,7 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
                 onChange={handleChange}
                 placeholder="Lambda-11"
                 required
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-red-500"
+                className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-orange-500"
               />
             </div>
           </div>
@@ -110,7 +110,7 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
               onChange={handleChange}
               placeholder="Patrolling Zone B"
               required
-              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-red-500"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-orange-500"
             />
           </div>
 
@@ -122,7 +122,7 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
               name="cityId"
               value={form.cityId}
               onChange={handleChange}
-              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors focus:border-red-500"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-100 outline-none transition-colors focus:border-orange-500"
               required
             >
               {CITY_OPTIONS.map((city) => (
@@ -136,7 +136,7 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 w-full rounded-lg bg-red-600 py-3 font-semibold text-white transition-colors duration-150 hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
+            className="mt-2 w-full rounded-lg bg-orange-600 py-3 font-semibold text-white transition-colors duration-150 hover:bg-orange-700 disabled:cursor-not-allowed disabled:bg-orange-300"
           >
             {loading ? "Creating..." : "Create Robot"}
           </button>

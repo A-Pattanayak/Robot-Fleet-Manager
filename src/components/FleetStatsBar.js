@@ -16,8 +16,8 @@ const FleetStatsBar = ({ activeFilter, counts, onFilterChange }) => {
                 flex min-w-28 items-center gap-2 rounded-md border px-3 py-2 text-left
                 transition-colors duration-150
                 ${isActive
-                  ? "border-red-500 bg-red-600"
-                  : "border-zinc-700 bg-zinc-800 hover:border-red-400"
+                  ? "border-orange-500 bg-orange-600"
+                  : "border-zinc-700 bg-zinc-800 hover:border-orange-400"
                 }
               `}
             >
@@ -26,7 +26,7 @@ const FleetStatsBar = ({ activeFilter, counts, onFilterChange }) => {
                 <span className="block text-lg font-bold leading-5 text-white">
                   {counts[stat.key]}
                 </span>
-                <span className={`block text-xs font-medium ${isActive ? "text-red-50" : "text-zinc-300"}`}>
+                <span className={`block text-xs font-medium ${isActive ? "text-orange-50" : "text-zinc-300"}`}>
                   {stat.label}
                 </span>
               </span>
