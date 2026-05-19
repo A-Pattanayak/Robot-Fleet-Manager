@@ -28,7 +28,6 @@ const Header = () => {
 
       <div className="flex items-center gap-3">
         <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-orange-400/40 bg-zinc-950 shadow-lg shadow-orange-950/40">
-          <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border border-zinc-950 bg-emerald-400" />
           <img
             src="/automata-favicon.svg"
             alt="AUTOMATA"

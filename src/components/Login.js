@@ -105,26 +105,33 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="relative min-h-screen bg-zinc-950 bg-cover bg-center text-zinc-100"
-      style={{ backgroundImage: `url(${loginBackground})` }}
-    >
+    <div className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
+      <img
+        src={loginBackground}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        aria-hidden="true"
+      />
       {isLoading && (
         <LoginShimmerUI
           message={isSignIn ? "Signing you in..." : "Creating your operator account..."}
         />
       )}
 
-      <div className="absolute inset-0 bg-black/65" />
+      <div className="absolute inset-0 bg-zinc-950/25" />
+      <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/20 via-transparent to-zinc-950/35" />
 
       <main className="relative z-10 flex min-h-screen items-center justify-center px-4 py-10">
-        <section className="grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-lg border border-white/10 bg-zinc-900/90 shadow-2xl lg:grid-cols-[1fr_420px]">
-          <div className="hidden bg-zinc-950/80 p-10 text-white lg:flex lg:flex-col lg:justify-between">
+        <section className="grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-lg border border-orange-300/20 bg-zinc-950/35 shadow-2xl shadow-orange-950/30 backdrop-blur-sm lg:grid-cols-[1fr_420px]">
+          <div className="hidden bg-zinc-950/35 p-10 text-white lg:flex lg:flex-col lg:justify-between">
             <div>
               <div className="mb-10 flex items-center gap-3">
-                <div className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-orange-400/40 bg-gradient-to-br from-orange-500 via-orange-700 to-zinc-950 text-sm font-black shadow-lg shadow-orange-950/40">
-                  <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border border-zinc-950 bg-emerald-400" />
-                  A
+                <div className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-orange-400/40 bg-zinc-950 shadow-lg shadow-orange-950/40">
+                  <img
+                    src="/automata-favicon.svg"
+                    alt="AUTOMATA"
+                    className="h-10 w-10 rounded-md"
+                  />
                 </div>
                 <div>
                   <p className="bg-gradient-to-r from-white via-orange-100 to-orange-400 bg-clip-text text-2xl font-black leading-6 tracking-normal text-transparent">
@@ -154,7 +161,7 @@ const Login = () => {
           </div>
 
           <form
-            className="bg-zinc-900/95 p-6 text-zinc-100 sm:p-8"
+            className="bg-zinc-950/80 p-6 text-zinc-100 backdrop-blur-md sm:p-8"
             onSubmit={(event) => {
               event.preventDefault();
               handleAuth();
