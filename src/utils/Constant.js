@@ -108,7 +108,7 @@ export const ROBOT_CARD_THEMES = [
 
 export const MAP_CONTAINER_STYLE = {
   width: "100%",
-  height: "340px",
+  height: "clamp(260px, 62vw, 340px)",
 };
 
 export const MAP_CENTER = {

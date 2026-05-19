@@ -42,22 +42,22 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
   return (
  
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 p-3 sm:p-4"
       onClick={onClose}
     >
  
       <div
-        className="w-full max-w-lg rounded-lg border border-zinc-800 bg-zinc-900 p-6 shadow-xl"
+        className="max-h-[calc(100vh-1.5rem)] w-full max-w-lg overflow-y-auto rounded-lg border border-zinc-800 bg-zinc-900 p-4 shadow-xl sm:max-h-[calc(100vh-2rem)] sm:p-6"
         onClick={e => e.stopPropagation()}
       >
-        <div className="mb-6 flex items-center justify-between">
-          <div>
+        <div className="mb-5 flex items-start justify-between gap-3 sm:mb-6">
+          <div className="min-w-0">
             <p className="text-sm font-semibold text-orange-500">AUTOMATA Unit</p>
-            <h2 className="text-xl font-bold text-white">Add New Robot</h2>
+            <h2 className="text-lg font-bold text-white sm:text-xl">Add New Robot</h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-md px-2 py-1 text-xl text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-white"
+            className="shrink-0 rounded-md px-2 py-1 text-xl text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-white"
           >
             x
           </button>

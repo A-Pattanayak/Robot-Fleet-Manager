@@ -4,4 +4,9 @@
 
 body {
   background: #09090b;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
 }

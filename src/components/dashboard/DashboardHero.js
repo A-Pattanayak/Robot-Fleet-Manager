@@ -1,12 +1,12 @@
 const DashboardHero = ({ onAddRobot }) => {
   return (
-    <section className="mb-3 rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 shadow-sm">
+    <section className="mb-3 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-3 shadow-sm sm:px-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="max-w-2xl">
+        <div className="min-w-0 max-w-2xl">
           <p className="mb-0.5 text-[11px] font-semibold uppercase text-orange-400">
             Live Robot Operations
           </p>
-          <h2 className="bg-gradient-to-r from-white via-orange-100 to-orange-400 bg-clip-text text-2xl font-black tracking-normal text-transparent sm:text-3xl">
+          <h2 className="bg-gradient-to-r from-white via-orange-100 to-orange-400 bg-clip-text text-xl font-black tracking-normal text-transparent sm:text-3xl">
             AUTOMATA Command Center
           </h2>
           <p className="mt-1 text-xs leading-5 text-zinc-400 sm:text-sm">

@@ -14,14 +14,14 @@ import {
 } from "../utils/robotUtils";
 
 const MapHeader = ({ locationCount }) => (
-  <div className="flex items-center justify-between border-b border-zinc-700 bg-zinc-800 px-4 py-2">
+  <div className="flex flex-col gap-2 border-b border-zinc-700 bg-zinc-800 px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:px-4">
     <div>
       <p className="text-sm font-semibold text-white">Live Map</p>
       <p className="text-xs text-zinc-300">
         {locationCount} active location{locationCount === 1 ? "" : "s"}
       </p>
     </div>
-    <span className="rounded-full border border-orange-500/40 bg-orange-500/10 px-3 py-1 text-xs font-semibold text-orange-200">
+    <span className="w-fit rounded-full border border-orange-500/40 bg-orange-500/10 px-3 py-1 text-xs font-semibold text-orange-200">
       Powered by Google Maps
     </span>
   </div>
@@ -43,7 +43,7 @@ const RobotGroupMarker = ({ group, onClick }) => {
 
 const RobotGroupInfoWindow = ({ group, onClose, onRobotClick }) => (
   <InfoWindow position={group.position} onCloseClick={onClose}>
-    <div className="min-w-56">
+    <div className="min-w-0 max-w-64">
       <p className="mb-1 text-xs text-gray-500">{group.label}</p>
       <h3 className="mb-3 font-bold text-slate-900">
         {group.robots.length} robot{group.robots.length > 1 ? "s" : ""}

@@ -2,10 +2,10 @@ import { STATUS_OPTIONS } from "../../utils/Constant";
 
 const RobotStatusActions = ({ currentStatus, isCriticalBattery, onStatusChange }) => {
   return (
-    <section className="mb-4 rounded-lg border border-zinc-800 bg-zinc-900 p-5 shadow-sm">
+    <section className="mb-4 rounded-lg border border-zinc-800 bg-zinc-900 p-4 shadow-sm sm:p-5">
       <h3 className="mb-4 text-lg font-semibold text-white">Update Status</h3>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:flex lg:flex-wrap">
         {STATUS_OPTIONS.map((option) => {
           const isActive = currentStatus === option.value;
           const isDisabled = isCriticalBattery && option.value === "active";

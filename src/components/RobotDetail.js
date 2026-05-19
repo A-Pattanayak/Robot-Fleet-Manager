@@ -64,11 +64,11 @@ const RobotDetail = () => {
     <div className="min-h-screen bg-zinc-950">
       <Header />
 
-      <main className="mx-auto max-w-6xl px-4 py-5 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-6xl px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
         <div className="mb-5 flex items-center justify-between">
           <button
             onClick={() => navigate("/")}
-            className="rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-200 transition-colors duration-150 hover:border-zinc-500 hover:bg-zinc-800 hover:text-white"
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-200 transition-colors duration-150 hover:border-zinc-500 hover:bg-zinc-800 hover:text-white sm:w-auto"
           >
             Back to AUTOMATA
           </button>

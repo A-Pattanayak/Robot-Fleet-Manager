@@ -53,19 +53,21 @@ const RobotCard = ({ robot, themeIndex = 0 }) => {
     >
       <CardBackground theme={theme} statusLine={statusLine} />
 
-      <div className="relative p-4">
+      <div className="relative p-3 sm:p-4">
         <div className="mb-3 flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="mb-1 text-xs font-medium text-zinc-500">
               {robot.id}
             </p>
 
-            <h3 className="truncate text-lg font-semibold text-white">
+            <h3 className="truncate text-base font-semibold text-white sm:text-lg">
               {robot.name}
             </h3>
           </div>
 
-          <StatusBadge status={robot.status} />
+          <div className="shrink-0">
+            <StatusBadge status={robot.status} />
+          </div>
         </div>
 
         <p className="mb-3 line-clamp-2 text-sm leading-6 text-zinc-300">
@@ -80,13 +82,13 @@ const RobotCard = ({ robot, themeIndex = 0 }) => {
           </div>
         )}
 
-        <div className="flex items-center justify-between gap-3">
-          <span className="truncate text-xs text-zinc-400">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+          <span className="min-w-0 break-words text-xs text-zinc-400 sm:truncate">
             Location: {robot.location.label}
           </span>
 
           {alertCount > 0 && (
-            <span className="shrink-0 rounded-full border border-red-500/20 bg-zinc-950/50 px-2 py-0.5 text-xs font-medium text-red-300">
+            <span className="w-fit shrink-0 rounded-full border border-red-500/20 bg-zinc-950/50 px-2 py-0.5 text-xs font-medium text-red-300">
               {alertCount} alert{alertCount > 1 ? "s" : ""}
             </span>
           )}

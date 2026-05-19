@@ -5,10 +5,10 @@ const RobotChargePanel = ({ battery }) => {
   const batteryConfig = getBatteryConfig(battery);
 
   return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5 shadow-sm">
+    <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4 shadow-sm sm:p-5">
       <h3 className="mb-5 text-lg font-semibold text-white">Charge Status</h3>
 
-      <p className={`mb-3 text-5xl font-bold ${batteryConfig.text}`}>
+      <p className={`mb-3 text-4xl font-bold sm:text-5xl ${batteryConfig.text}`}>
         {battery}%
       </p>
 
