@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { normalizeRobotStatus } from "../utils/robotUtils";
 
 const useFleetMetrics = (robots) => {
   return useMemo(() => {
@@ -15,7 +16,7 @@ const useFleetMetrics = (robots) => {
     let alertCount = 0;
 
     robots.forEach((robot) => {
-      const status = robot.status === "working" ? "active" : robot.status;
+      const status = normalizeRobotStatus(robot).status;
 
       if (counts[status] !== undefined) {
         counts[status] += 1;

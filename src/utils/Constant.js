@@ -1,5 +1,3 @@
-export const FILTERS = ["all", "active", "idle", "charging", "error"];
-
 export const STATUS_CONFIG = {
   active: {
     label: "Active",
@@ -66,6 +64,124 @@ export const STATUS_OPTIONS = Object.values(STATUS_CONFIG).map((status) => ({
   value: status.key,
   style: status.buttonStyle,
 }));
+
+export const BATTERY_LIMITS = {
+  medium: 30,
+  high: 60,
+  lowWarning: 20,
+  critical: 15,
+};
+
+export const ROBOT_CARD_STATUS_LINE = {
+  active: "bg-emerald-400",
+  idle: "bg-zinc-400",
+  charging: "bg-amber-400",
+  error: "bg-red-500",
+};
+
+export const ROBOT_CARD_THEMES = [
+  {
+    glow: "from-red-500/20",
+    wash: "bg-red-500/10",
+  },
+  {
+    glow: "from-sky-500/20",
+    wash: "bg-sky-500/10",
+  },
+  {
+    glow: "from-emerald-500/20",
+    wash: "bg-emerald-500/10",
+  },
+  {
+    glow: "from-amber-500/20",
+    wash: "bg-amber-500/10",
+  },
+  {
+    glow: "from-fuchsia-500/20",
+    wash: "bg-fuchsia-500/10",
+  },
+  {
+    glow: "from-cyan-500/20",
+    wash: "bg-cyan-500/10",
+  },
+];
+
+export const MAP_CONTAINER_STYLE = {
+  width: "100%",
+  height: "340px",
+};
+
+export const MAP_CENTER = {
+  lat: 28.6139,
+  lng: 77.209,
+};
+
+export const MAP_OPTIONS = {
+  disableDefaultUI: true,
+  fullscreenControl: true,
+  zoomControl: true,
+  clickableIcons: false,
+  gestureHandling: "greedy",
+  styles: [
+    {
+      featureType: "poi",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "transit",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.icon",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "administrative",
+      elementType: "labels",
+      stylers: [{ visibility: "simplified" }, { color: "#64748b" }],
+    },
+    {
+      featureType: "landscape",
+      stylers: [{ color: "#eef2f7" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#cbd5e1" }, { lightness: 10 }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#94a3b8" }],
+    },
+    {
+      featureType: "water",
+      stylers: [{ color: "#bfdbfe" }],
+    },
+  ],
+};
+
+export const MAP_STATUS_STYLES = {
+  active: {
+    fill: "#16a34a",
+    ring: "#bbf7d0",
+  },
+  idle: {
+    fill: "#64748b",
+    ring: "#e2e8f0",
+  },
+  charging: {
+    fill: "#d97706",
+    ring: "#fef3c7",
+  },
+  error: {
+    fill: "#dc2626",
+    ring: "#fecaca",
+  },
+};
+
+export const MAP_STATUS_PRIORITY = ["error", "charging", "active", "idle"];
 
 export const CITY_OPTIONS = [
   {

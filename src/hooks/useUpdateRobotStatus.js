@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRobotStatus } from "../store/robotSlice";
 import { BASE_URL, getAuthHeaders } from "../utils/api";
+import { normalizeRobotStatus } from "../utils/robotUtils";
 
 const useUpdateRobotStatus = () => {
   const dispatch = useDispatch();
@@ -28,14 +29,14 @@ const useUpdateRobotStatus = () => {
       }
 
       const updatedRobot = await response.json();
+      const normalizedRobot = normalizeRobotStatus(updatedRobot);
 
       dispatch(
         updateRobotStatus({
-          id: updatedRobot.id,
-          status: updatedRobot.status,
+          id: normalizedRobot.id,
+          status: normalizedRobot.status,
         })
       );
-
     } catch (error) {
       console.error("Failed to update robot status:", error);
     }

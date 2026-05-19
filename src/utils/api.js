@@ -1,6 +1,10 @@
 import auth from "./Firebase";
 
-export const BASE_URL = "http://127.0.0.1:8000";
+const trimTrailingSlash = (url = "") => url.replace(/\/+$/, "");
+
+export const BASE_URL = trimTrailingSlash(
+  process.env.REACT_APP_API_URL || "http://127.0.0.1:8000"
+);
 
 export const getAuthHeaders = async (expectedUid) => {
   const user = auth.currentUser;

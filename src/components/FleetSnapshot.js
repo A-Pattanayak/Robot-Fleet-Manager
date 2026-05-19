@@ -9,7 +9,7 @@ const FleetSnapshot = ({ counts, lowBatteryCount, locationCount, alertCount }) =
   return (
     <aside className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow-sm">
       <div className="border-b border-zinc-700 bg-zinc-800 px-4 py-2">
-        <p className="text-sm font-semibold text-white">RoboSena Snapshot</p>
+        <p className="text-sm font-semibold text-white">AUTOMATA Snapshot</p>
         <p className="mt-1 text-xs text-zinc-300">Current operating state</p>
       </div>
 

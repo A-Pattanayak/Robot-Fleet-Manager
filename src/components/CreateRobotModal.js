@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { EMPTY_ROBOT_FORM } from "../utils/Constant";
-import { CITY_OPTIONS } from "../utils/Constant";
-import useCreateRobot from "../hooks/useCreateRobot.js";
+import { CITY_OPTIONS, EMPTY_ROBOT_FORM } from "../utils/Constant";
+import useCreateRobot from "../hooks/useCreateRobot";
 
 
 const CreateRobotModal = ({ onClose, onCreated }) => {
@@ -24,21 +23,21 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
-  setLoading(true);
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
-  try {
-    const newRobot = await createRobot(form);
+    try {
+      const newRobot = await createRobot(form);
 
-    onCreated(newRobot);
-    onClose();
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+      onCreated(newRobot);
+      onClose();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
  
@@ -53,7 +52,7 @@ const CreateRobotModal = ({ onClose, onCreated }) => {
       >
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <p className="text-sm font-semibold text-red-700">RoboSena Unit</p>
+            <p className="text-sm font-semibold text-red-700">AUTOMATA Unit</p>
             <h2 className="text-xl font-bold text-white">Add New Robot</h2>
           </div>
           <button

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { Navigate, Outlet, createBrowserRouter } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import RobotDetail from "./RobotDetail";
 import { RouterProvider } from "react-router-dom";
@@ -9,19 +9,21 @@ import { onAuthStateChanged } from "firebase/auth";
 import auth from "../utils/Firebase";
 import { addUser, removeUser } from "../store/userSlice";
 import { setRobot } from "../store/robotSlice";
+import useRobots from "../hooks/useRobots";
 
 const AuthLoader = () => (
   <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-sm font-semibold text-zinc-300">
-    Loading RoboSena...
+    Loading AUTOMATA...
   </div>
 );
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedLayout = () => {
   const { currentUser, isAuthLoading } = useSelector((store) => store.user);
+  useRobots();
 
   if (isAuthLoading) return <AuthLoader />;
 
-  return currentUser ? children : <Navigate to="/login" replace />;
+  return currentUser ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 const PublicRoute = ({ children }) => {
@@ -32,25 +34,29 @@ const PublicRoute = ({ children }) => {
   return currentUser ? <Navigate to="/" replace /> : children;
 };
 
-export const appRouter=createBrowserRouter(
+export const appRouter = createBrowserRouter(
   [
     {
-      element:<PublicRoute><Login /></PublicRoute>,
-      path:'/login'
+      element: <PublicRoute><Login /></PublicRoute>,
+      path: "/login",
     },
     {
-      element:<ProtectedRoute><Dashboard /></ProtectedRoute>,
-      path:'/'
+      element: <ProtectedLayout />,
+      children: [
+        {
+          element: <Dashboard />,
+          path: "/",
+        },
+        {
+          element: <RobotDetail />,
+          path: "/robot/:id",
+        },
+      ],
     },
-    {
-      element:<ProtectedRoute><RobotDetail /></ProtectedRoute>,
-      path: '/robot/:id'
-
-    }
   ]
-)
+);
 
-const Body=()=>{
+const Body = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -77,11 +83,11 @@ const Body=()=>{
     return unsubscribe;
   }, [dispatch]);
 
-  return(
+  return (
     <div>
       <RouterProvider router={appRouter}></RouterProvider>
     </div>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;

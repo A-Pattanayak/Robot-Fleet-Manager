@@ -2,7 +2,7 @@ from fastapi import HTTPException
 
 from core.firebase import db
 from models.robot import RobotCreate, StatusUpdate
-from services.simulation_service import build_robot, simulate_robot_telemetry
+from services.simulation_service import build_robot
 
 
 def robots_collection(uid: str):
@@ -14,9 +14,7 @@ def get_robots_for_user(uid: str):
     robots = []
 
     for robot_doc in robot_docs:
-        robot = simulate_robot_telemetry(robot_doc.to_dict())
-        robots_collection(uid).document(robot["id"]).set(robot)
-        robots.append(robot)
+        robots.append(robot_doc.to_dict())
 
     return robots
 
@@ -28,9 +26,7 @@ def get_robot_for_user(uid: str, robot_id: str):
     if not robot_snapshot.exists:
         raise HTTPException(status_code=404, detail="Robot not found")
 
-    robot = simulate_robot_telemetry(robot_snapshot.to_dict())
-    robot_ref.set(robot)
-    return robot
+    return robot_snapshot.to_dict()
 
 
 def create_robot_for_user(uid: str, robot: RobotCreate):

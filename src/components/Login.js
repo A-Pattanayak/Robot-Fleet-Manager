@@ -15,6 +15,13 @@ import loginBackground from "../utils/Gemini_Generated_Image_sp6jfisp6jfisp6j.pn
 const profileLogo =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%23dc2626'/%3E%3Cpath d='M28 60h40v8H28zM34 29h28a6 6 0 0 1 6 6v17H28V35a6 6 0 0 1 6-6z' fill='white'/%3E%3Ccircle cx='39' cy='42' r='4' fill='%23dc2626'/%3E%3Ccircle cx='57' cy='42' r='4' fill='%23dc2626'/%3E%3Cpath d='M42 52h12' stroke='%23dc2626' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E";
 
+const loginHighlights = ["Telemetry", "Map View", "Alerts"];
+
+const inputClass =
+  "mb-4 w-full rounded-lg border border-zinc-700 bg-zinc-950 p-3 text-sm text-zinc-100 outline-none transition-colors duration-150 placeholder:text-zinc-500 focus:border-red-500";
+
+const featureCardClass = "rounded-lg border border-white/10 bg-white/5 p-4";
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -115,16 +122,21 @@ const Login = () => {
           <div className="hidden bg-zinc-950/80 p-10 text-white lg:flex lg:flex-col lg:justify-between">
             <div>
               <div className="mb-10 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600 text-sm font-bold">
-                  RS
+                <div className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-red-400/40 bg-gradient-to-br from-red-500 via-red-700 to-zinc-950 text-sm font-black shadow-lg shadow-red-950/40">
+                  <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border border-zinc-950 bg-emerald-400" />
+                  A
                 </div>
                 <div>
-                  <p className="text-lg font-bold leading-5">RoboSena</p>
-                  <p className="text-xs font-medium text-zinc-400">Command Center</p>
+                  <p className="bg-gradient-to-r from-white via-red-100 to-red-400 bg-clip-text text-2xl font-black leading-6 tracking-normal text-transparent">
+                    AUTOMATA
+                  </p>
+                  <p className="text-[11px] font-semibold uppercase tracking-normal text-zinc-400">
+                    Command Center
+                  </p>
                 </div>
               </div>
               <h1 className="max-w-lg text-4xl font-bold leading-tight tracking-normal">
-                Secure access for your robot sena.
+                Secure access for your autonomous fleet.
               </h1>
               <p className="mt-4 max-w-md text-sm leading-6 text-zinc-300">
                 Track robots across Indian cities, review alerts, and keep every unit mission-ready.
@@ -132,8 +144,8 @@ const Login = () => {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              {["Telemetry", "Map View", "Alerts"].map((item) => (
-                <div key={item} className="rounded-lg border border-white/10 bg-white/5 p-4">
+              {loginHighlights.map((item) => (
+                <div key={item} className={featureCardClass}>
                   <p className="text-xs text-zinc-300">{item}</p>
                   <div className="mt-3 h-1.5 rounded-full bg-red-500" />
                 </div>
@@ -149,7 +161,7 @@ const Login = () => {
             }}
           >
             <div className="mb-7">
-              <p className="text-sm font-semibold text-red-700">RoboSena Access</p>
+              <p className="text-sm font-semibold text-red-700">AUTOMATA Access</p>
               <h2 className="mt-1 text-3xl font-bold tracking-normal">
                 {isSignIn ? "Sign In" : "Create Account"}
               </h2>
@@ -163,7 +175,7 @@ const Login = () => {
                 ref={name}
                 type="text"
                 placeholder="Full name"
-                className="mb-4 w-full rounded-lg border border-zinc-700 bg-zinc-950 p-3 text-sm text-zinc-100 outline-none transition-colors duration-150 placeholder:text-zinc-500 focus:border-red-500"
+                className={inputClass}
               />
             )}
 
@@ -171,14 +183,14 @@ const Login = () => {
               ref={email}
               type="email"
               placeholder="Email"
-              className="mb-4 w-full rounded-lg border border-zinc-700 bg-zinc-950 p-3 text-sm text-zinc-100 outline-none transition-colors duration-150 placeholder:text-zinc-500 focus:border-red-500"
+              className={inputClass}
             />
 
             <input
               ref={password}
               type="password"
               placeholder="Password"
-              className="mb-3 w-full rounded-lg border border-zinc-700 bg-zinc-950 p-3 text-sm text-zinc-100 outline-none transition-colors duration-150 placeholder:text-zinc-500 focus:border-red-500"
+              className={`${inputClass} mb-3`}
             />
 
             {errorMessage && (

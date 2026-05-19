@@ -8,7 +8,7 @@ const useDeleteRobot = () => {
   const user = useSelector((store) => store.user.currentUser);
 
   const removeRobot = useCallback(async (robotId) => {
-    if (!user?.uid) return;
+    if (!user?.uid) return false;
 
     try {
       const authHeaders = await getAuthHeaders(user.uid);
@@ -22,8 +22,10 @@ const useDeleteRobot = () => {
       }
 
       dispatch(deleteRobot(robotId));
+      return true;
     } catch (error) {
       console.error("Failed to delete robot:", error);
+      return false;
     }
   }, [dispatch, user?.uid]);
 

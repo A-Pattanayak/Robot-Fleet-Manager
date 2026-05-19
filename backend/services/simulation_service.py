@@ -5,9 +5,6 @@ from fastapi import HTTPException
 from data.cities import CITY_LOCATIONS
 from models.robot import RobotCreate
 
-CRITICAL_BATTERY_MESSAGE = "Critical battery. Stop work and send robot to charging."
-
-
 def get_city(city_id: str):
     city = CITY_LOCATIONS.get(city_id)
 
@@ -43,33 +40,3 @@ def build_robot(robot: RobotCreate):
         "errorLog": [],
         "lastPing": "just now",
     }
-
-
-def simulate_robot_telemetry(robot: dict):
-    status = robot.get("status", "idle")
-    battery = robot.get("battery", 100)
-    errors = robot.get("errorLog", [])
-
-    if status == "charging":
-        battery = min(100, battery + random.randint(1, 3))
-        if battery == 100:
-            status = "idle"
-    elif status in ["active", "working"]:
-        battery = max(0, battery - random.randint(1, 5))
-        robot["uptime"] = robot.get("uptime", 0) + random.randint(60, 240)
-
-    if battery <= 15 and CRITICAL_BATTERY_MESSAGE not in errors:
-        errors.append(CRITICAL_BATTERY_MESSAGE)
-
-    if battery >= 30:
-        errors = [error for error in errors if error != CRITICAL_BATTERY_MESSAGE]
-
-    if status in ["active", "working"] and battery <= 10:
-        status = "idle"
-
-    robot["battery"] = battery
-    robot["status"] = status
-    robot["errorLog"] = errors
-    robot["lastPing"] = random.choice(["just now", "1 min ago", "2 mins ago"])
-
-    return robot
