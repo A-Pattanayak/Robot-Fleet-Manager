@@ -11,6 +11,7 @@ import Validate from "../utils/Validate";
 import { addUser } from "../store/userSlice";
 import LoginShimmerUI from "./LoginShimmerUI";
 import loginBackground from "../assets/login-background.jpg";
+import { TEST_USER_CREDENTIALS } from "../utils/Constant";
 
 const profileLogo =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='20' fill='%23ea580c'/%3E%3Cpath d='M28 60h40v8H28zM34 29h28a6 6 0 0 1 6 6v17H28V35a6 6 0 0 1 6-6z' fill='white'/%3E%3Ccircle cx='39' cy='42' r='4' fill='%23ea580c'/%3E%3Ccircle cx='57' cy='42' r='4' fill='%23ea580c'/%3E%3Cpath d='M42 52h12' stroke='%23ea580c' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E";
@@ -29,6 +30,7 @@ const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("");
   const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false);
 
   const email = useRef(null);
@@ -53,6 +55,24 @@ const Login = () => {
     );
   };
 
+  const signInUser = async (userEmail, userPassword, message) => {
+    setErrorMessage(null);
+    setLoadingMessage(message);
+    setIsLoading(true);
+
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, userEmail, userPassword);
+
+      syncUserToStore(user);
+      navigate("/");
+    } catch (error) {
+      setErrorMessage(error.code ? `${error.code} - ${error.message}` : error.message);
+    } finally {
+      setIsLoading(false);
+      setLoadingMessage("");
+    }
+  };
+
   const handleAuth = async () => {
     const message = Validate(
       email.current.value,
@@ -65,22 +85,16 @@ const Login = () => {
       return;
     }
 
+    if (isSignIn) {
+      await signInUser(email.current.value, password.current.value, "Signing you in...");
+      return;
+    }
+
     setErrorMessage(null);
+    setLoadingMessage("Creating your operator account...");
     setIsLoading(true);
 
     try {
-      if (isSignIn) {
-        const { user } = await signInWithEmailAndPassword(
-          auth,
-          email.current.value,
-          password.current.value
-        );
-
-        syncUserToStore(user);
-        navigate("/");
-        return;
-      }
-
       const { user } = await createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -102,7 +116,16 @@ const Login = () => {
       setErrorMessage(error.code ? `${error.code} - ${error.message}` : error.message);
     } finally {
       setIsLoading(false);
+      setLoadingMessage("");
     }
+  };
+
+  const handleTestUserLogin = () => {
+    signInUser(
+      TEST_USER_CREDENTIALS.email,
+      TEST_USER_CREDENTIALS.password,
+      "Signing in test user..."
+    );
   };
 
   return (
@@ -119,7 +142,7 @@ const Login = () => {
       />
       {isLoading && (
         <LoginShimmerUI
-          message={isSignIn ? "Signing you in..." : "Creating your operator account..."}
+          message={loadingMessage}
         />
       )}
 
@@ -218,6 +241,17 @@ const Login = () => {
             >
               {isSignIn ? "Sign In" : "Sign Up"}
             </button>
+
+            {isSignIn && (
+              <button
+                type="button"
+                disabled={isLoading}
+                className="my-2 w-full rounded-lg border border-orange-400 bg-zinc-100 p-3 text-sm font-bold text-zinc-950 shadow-lg shadow-orange-950/20 transition-colors duration-150 hover:bg-orange-100 disabled:cursor-not-allowed disabled:border-zinc-500 disabled:bg-zinc-400 disabled:text-zinc-700"
+                onClick={handleTestUserLogin}
+              >
+                Test User Login
+              </button>
+            )}
 
             <button
               type="button"

@@ -220,3 +220,8 @@ export const EMPTY_ROBOT_FORM = {
   task: "",
   cityId: "delhi",
 };
+
+export const TEST_USER_CREDENTIALS = {
+  email: "user@gmail.com",
+  password: "1234User",
+};
